@@ -1720,7 +1720,7 @@ Hash Sign(const void *idata, size_t isize, std::streambuf &output, const std::st
             uint32_t normal((limit + PageSize_ - 1) / PageSize_);
 
             CodeDirectory directory;
-            directory.version = Swap(uint32_t(0x00020200));
+            directory.version = Swap(uint32_t(0x00020400));
             directory.flags = Swap(uint32_t(0));
             directory.nSpecialSlots = Swap(special);
             directory.codeLimit = Swap(uint32_t(limit));
