@@ -89,6 +89,8 @@
 
 #include "ldid.hpp"
 
+#define __FILENAME__ strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
+
 #define _assert___(line) \
     #line
 #define _assert__(line) \
@@ -105,7 +107,7 @@
 // XXX: this is not acceptable
 #define _assert_(expr, format, ...) \
     do if (!(expr)) { \
-        fprintf(stderr, "%s(%u): _assert(): " format "\n", __FILE__, __LINE__, ## __VA_ARGS__); \
+        fprintf(stderr, "%s(%u): _assert(): " format "\n", __FILENAME__, __LINE__, ## __VA_ARGS__); \
         exit(-1); \
     } while (false)
 #endif
