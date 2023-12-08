@@ -107,7 +107,7 @@
 #define _assert_(expr, format, ...) \
     do if (!(expr)) { \
         char errorMessage[1024]; \
-        sprintf(errorMessage, "%s(%u): _assert(): " format "\n", __FILE__, __LINE__, ## __VA_ARGS__); \
+        sprintf(errorMessage, "%s(%u): _assert(): " format "\n", __FILENAME__, __LINE__, ## __VA_ARGS__); \
         throw std::runtime_error(errorMessage); \
     } while (false)
 #else
