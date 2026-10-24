@@ -209,6 +209,7 @@ Scope<Function_> _scope(const Function_ &function) {
 #define CPU_TYPE_I386 CPU_TYPE_X86
 
 #define CPU_TYPE_ARM64     (CPU_ARCH_ABI64 | CPU_TYPE_ARM)
+#define CPU_TYPE_ARM64_32  (0x02000000 | CPU_TYPE_ARM)
 #define CPU_TYPE_POWERPC64 (CPU_ARCH_ABI64 | CPU_TYPE_POWERPC)
 #define CPU_TYPE_X86_64    (CPU_ARCH_ABI64 | CPU_TYPE_X86)
 
@@ -1480,6 +1481,7 @@ static void Allocate(const void *idata, size_t isize, std::streambuf &output, co
                 break;
             case CPU_TYPE_ARM:
             case CPU_TYPE_ARM64:
+            case CPU_TYPE_ARM64_32:
                 align = 0xe;
                 break;
             default:
@@ -1506,6 +1508,9 @@ static void Allocate(const void *idata, size_t isize, std::streambuf &output, co
                 break;
             case CPU_TYPE_ARM64:
                 arch = "arm64";
+                break;
+            case CPU_TYPE_ARM64_32:
+                arch = "arm64_32";
                 break;
         }
 
