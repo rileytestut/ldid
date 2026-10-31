@@ -2984,7 +2984,7 @@ Bundle Sign(const std::string &root, Folder &parent, const std::string &key, Sta
     }
 
     std::string failure(mac ? "Contents/|Versions/[^/]*/Resources/" : "");
-    Expression nested("^(Frameworks/[^/]*\\.framework|PlugIns/[^/]*\\.appex(()|/[^/]*.app))/(" + failure + ")Info\\.plist$");
+    Expression nested("^(Frameworks/[^/]*\\.framework|(PlugIns|Extensions)/[^/]*\\.appex(()|/[^/]*.app))/(" + failure + ")Info\\.plist$");
     std::map<std::string, Bundle> bundles;
 
     folder.Find("", fun([&](const std::string &name) {
@@ -2998,7 +2998,7 @@ Bundle Sign(const std::string &root, Folder &parent, const std::string &key, Sta
         SubFolder subfolder(folder, bundle);
 
         State remote;
-        bundles[nested[1]] = Sign(root + bundle, subfolder, key, remote, "", Starts(name, "PlugIns/") ? alter :
+        bundles[nested[1]] = Sign(root + bundle, subfolder, key, remote, "", Starts(name, "PlugIns/") || Starts(name, "Extensions/") ? alter :
             static_cast<const Functor<std::string (const std::string &, const std::string &)> &>(fun([&](const std::string &, const std::string &) -> std::string { return entitlements; }))
         , progress);
         local.Merge(bundle, remote);
